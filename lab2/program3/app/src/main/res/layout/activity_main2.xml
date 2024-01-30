@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+        <TextView
+            android:id="@+id/textView1"
+            android:textSize="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type here"
+            android:layout_alignParentTop="true"/>
+
+        <EditText
+            android:textColor="@color/black"
+            android:layout_width="364sp"
+            android:layout_height="20sp"
+            android:id="@+id/textbox"
+            android:background="@color/white"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textbox"
+            android:layout_marginStart="7sp"
+            android:layout_marginTop="7sp"
+            android:layout_marginEnd="7sp"
+            android:layout_marginBottom="7sp"
+            android:layout_toLeftOf="@+id/btn2"
+            android:background="@color/red"
+            android:padding="0sp"
+            android:text="cancel" />
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textbox"
+            android:layout_alignRight="@+id/textbox"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="7sp"
+            android:background="@color/white"
+            android:text="OK" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
