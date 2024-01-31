@@ -1,68 +1,72 @@
-package com.example.scenario
+package com.example.program1
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
-import android.widget.GridView
-import android.widget.ImageView
 import android.widget.ListView
-import com.example.program1.R
+import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 
-class ImageAdapter(private val context: Context, private val pics:Array<Int>): BaseAdapter(){
-    override fun getCount(): Int {
-        return pics.size
-    }
-
-    override fun getItem(position: Int): Any {
-        return  pics[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val imageView: ImageView
-        if (convertView == null) {
-// if it's not recycled, initialize some attributes
-            imageView = ImageView(context)
-            imageView.layoutParams = AbsListView.LayoutParams(300, 300)
-            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-            imageView.setPadding(20, 20, 20, 20)
-        } else {
-            imageView = convertView as ImageView
-        }
-        imageView.setImageResource(pics[position])
-        return imageView
-
-    }
-}
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val places = arrayOf(
-            "New York", "Los Angeles", "Chicago", "Houston", "Phoenix",
-            "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose",
-            "Austin", "Jacksonville", "Fort Worth", "Columbus", "Charlotte",
-            "Detroit", "El Paso", "Seattle", "Denver", "Washington"
+
+        val listView = findViewById<ListView>(R.id.listView)
+        val cities = arrayOf(
+            "New York", "Los Angeles", "Chicago", "Houston", "Philadelphia", "Phoenix", "San Antonio", "San Diego",
+            "Dallas", "San Jose", "Austin", "Jacksonville", "San Francisco", "Indianapolis", "Columbus", "Fort Worth",
+            "Charlotte", "Seattle", "Denver", "El Paso", "Detroit", "Washington D.C.", "Boston", "Memphis", "Nashville",
+            "Portland", "Oklahoma City", "Las Vegas", "Baltimore", "Louisville", "Milwaukee", "Albuquerque", "Tucson",
+            "Fresno", "Sacramento", "Kansas City", "Long Beach", "Mesa", "Atlanta", "Colorado Springs", "Virginia Beach",
+            "Raleigh", "Omaha", "Miami", "Oakland", "Minneapolis", "Tulsa", "Bakersfield", "Arlington", "Wichita"
         )
-        val pics= arrayOf(
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background
-        )
-        val listview: ListView =findViewById(R.id.listView)
-        val adapter= ArrayAdapter(this,android.R.layout.simple_list_item_1,places)
-        listview.adapter=adapter
-        val gridView: GridView = findViewById(R.id.gridView)
-        val adapter2 = ImageAdapter(this, pics)
-        gridView.adapter = adapter2
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cities)
+        listView.adapter = adapter
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+// Use a GridLayoutManager with 2 columns
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = CustomAdapter(generateItems())
+
     }
+}
+
+fun generateItems(): Array<String> {
+    val items = mutableListOf<String>()
+    for (i in 1..100) {
+        items.add("Item $i")
+    }
+    return items.toTypedArray()
+}
+
+
+class CustomAdapter(private val dataSet: Array<String>) :
+    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val textView: TextView
+
+        init {
+            textView = view.findViewById(R.id.textView)
+        }
+    }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.text_row_item, viewGroup, false)
+
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.textView.text = dataSet[position]
+    }
+
+    override fun getItemCount() = dataSet.size
 }
