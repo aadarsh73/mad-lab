@@ -2,6 +2,7 @@ package com.example.program2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -15,9 +16,12 @@ class MainActivity : AppCompatActivity() {
         val items = arrayOf("rice", "dal", "apple", "onion", "ketchup")
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items)
         listView.adapter = adapter
-
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            Toast.makeText(this, "You clicked ${items[position]}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "You clicked ${items[position]}", Toast.LENGTH_SHORT).show()
+            val toast = Toast.makeText(applicationContext, "Your string here", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
+            toast.show()
+
         }
 
     }
